@@ -34,52 +34,9 @@ class UserService(Service):
 
         self.data = user 
 
-        return user
-        
-    async def update_role(
-        self,
-        new_role: int
-    ):
-        if not self.data:
-            raise AttributeError(
-                f'Data of user for update a role not found'
-            )
-        if self.data.role_str == new_role:
-            return True 
-        
-        self.data = await self.user_repository.update_role(
-            user_id=self.data.id,
-            new_role=new_role
-        )
-
-        if not self.data: 
-            return False 
-        
-        return True
+        return user 
     
-    async def plus_balance(
-        self,
-        count: int 
-    ):
-        self.logger.log(f"Запрос на увеличение баланса для [name: {self.data.first_name}; telegram_id: {self.data.telegram_id}; last_chestons: {self.data.chestons}; count: {count}]")
-
-
-        self.data = await self.user_repository.set_balance(
-            count=self.data.chestons+count,
-            user_id=self.data.id
-        )
-
-    async def minus_balance(
-        self,
-        count: int 
-    ) -> None:
-        self.logger.log(f"Запрос на уменьшение баланса для [name: {self.data.first_name}; telegram_id: {self.data.telegram_id}; last_chestons: {self.data.chestons}; count: {count}]")
-
-        self.data = await self.user_repository.set_balance(
-            count=self.data.chestons-count,
-            user_id=self.data.id
-        )
-
+    
     def create_link(
         self,
         name: str,
