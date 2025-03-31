@@ -1,0 +1,4 @@
+
+
+class RecordNotFoundError(Exception):
+    pass
